@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 // const request = require("request");
 const https = require("https");
+// const mongoose = require("mongoose");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
@@ -31,11 +32,12 @@ app.post('/',function(req,res){
         ],
     }
     const jsondata = JSON.stringify(data);
+    const apiKey = "c7414269bc73526c05609ef9c42be5b6-us11"
 
-    const url="https://us11.api.mailchimp.com/3.0/lists/921476deff";
+    const url="https://us11.api.mailchimp.com/3.0/lists/"+LIST_ID_MAILCHIMP;
     options={
         method:"POST",
-        auth:"key:c7414269bc73526c05609ef9c42be5b6-us11",
+        auth:"key:"+API_KEY_MAILCHIMP,
     }
     const request = https.request(url,options,function(response){
         response.on("data",function(data){
@@ -56,16 +58,10 @@ app.post('/failure',function(req,res){
     res.redirect('/');
 })
 
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 4040
 
 app.listen(PORT,function(){
     console.log("Server is running at port "+PORT);
 })
 
-
-// mail chimp api key
-// c7414269bc73526c05609ef9c42be5b6-us11
-
-// audience id
-// 921476deff
 
